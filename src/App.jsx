@@ -170,7 +170,7 @@ export default function App() {
   const [lang, setLang] = useState('en');
   const [activeTab, setActiveTab] = useState('about');
   const [time, setTime] = useState(new Date());
-  const [isLocked, setIsLocked] = useState(true);
+  const [isLocked, setIsLocked] = useState(false); // Default unlocked
   const [unlocking, setUnlocking] = useState(false);
   const [isDark, setIsDark] = useState(false);
   // --- KODE BARU: State untuk Layar Hello ---
@@ -181,6 +181,14 @@ export default function App() {
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  // --- Auto hide hello screen after animation ---
+  useEffect(() => {
+    const helloTimer = setTimeout(() => {
+      setShowHello(false);
+    }, 6000); // Hide after 6 seconds
+    return () => clearTimeout(helloTimer);
   }, []);
 
   // --- KODE BARU: Handle Layar Hello ---
